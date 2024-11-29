@@ -6,7 +6,7 @@
   "scripts": {
     "client": "cd client && npm install && npm run dev",
     "server": "cd server && pip install -r requirements.txt && python3 server.py",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Your Name",
   "license": "MIT",
