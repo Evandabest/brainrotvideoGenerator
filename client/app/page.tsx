@@ -26,7 +26,7 @@ const MediaCombiner: React.FC = () => {
         
         setFFmpeg(ffmpegInstance);
         setStatus('idle');
-      } catch (err) {
+      } catch {
         setError('Failed to load FFmpeg');
         setStatus('error');
       }
