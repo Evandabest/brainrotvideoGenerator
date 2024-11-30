@@ -82,6 +82,8 @@ def upload_video():
         duration = request.form.get('duration', default=60, type=int)  # Example duration
         print(f"Parsed Duration: {duration}")
 
+        level = request.form.get('level', default=3, type=int)
+
         if duration is None:
             return jsonify({'error': 'Duration is missing or invalid'}), 400
 
@@ -90,7 +92,7 @@ def upload_video():
         video_stream = io.BytesIO(video_bytes)
 
         # Call makeScript with in-memory file
-        script = makeScript(video_stream, duration)
+        script = makeScript(video_stream, duration, level)
 
         print(f"Duration: {duration}, Script: {script}")
 
