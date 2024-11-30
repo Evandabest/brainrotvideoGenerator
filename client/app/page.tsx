@@ -23,6 +23,7 @@ const MediaCombiner: React.FC = () => {
   const [selectedVoice, setSelectedVoice] = useState(voices[0].shortName);
   const [error, setError] = useState<string | null>(null);
   const [ffmpeg, setFFmpeg] = useState<FFmpeg | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   
   const videoRef = useRef<HTMLInputElement>(null);
 
@@ -176,10 +177,7 @@ const MediaCombiner: React.FC = () => {
       const blob = new Blob([data], { type: 'video/mp4' });
       const url = URL.createObjectURL(blob);
 
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'video-with-voiceover.mp4';
-      a.click();
+      setVideoUrl(url);
 
       await ffmpeg.deleteFile('input.mp4');
       await ffmpeg.deleteFile('audio.mp3');
@@ -237,7 +235,16 @@ const MediaCombiner: React.FC = () => {
 
         {status === 'completed' && (
           <div className="text-green-500 mt-2 text-center font-medium">
-            Video with voiceover has been downloaded!
+            Video with voiceover has been generated!
+          </div>
+        )}
+
+        {videoUrl && (
+          <div className="mt-4">
+            <video controls src={videoUrl} className="w-full" />
+            <a href={videoUrl} download="video-with-voiceover.mp4" className="block mt-2 text-center text-blue-500">
+              Download Video
+            </a>
           </div>
         )}
       </div>
