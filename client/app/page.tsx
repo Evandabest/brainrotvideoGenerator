@@ -66,7 +66,7 @@ const MediaCombiner: React.FC = () => {
     });
   };
 
-  interface VoiceChangeEvent extends React.ChangeEvent<HTMLSelectElement> {}
+  type VoiceChangeEvent = React.ChangeEvent<HTMLSelectElement>;
 
   const handleVoiceChange = (event: VoiceChangeEvent) => {
     setSelectedVoice(event.target.value);

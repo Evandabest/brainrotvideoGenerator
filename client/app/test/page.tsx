@@ -103,16 +103,6 @@ const MediaCombiner: React.FC = () => {
     });
   };
 
-  interface VoiceChangeEvent extends React.ChangeEvent<HTMLSelectElement> {}
-
-  const handleVoiceChange = (event: VoiceChangeEvent) => {
-    setSelectedVoice(event.target.value);
-  };
-
-  const handleLevelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLevel(Number(event.target.value));
-  };
-
   const getScript = async () => {
     try {
         if (!ffmpeg) {
