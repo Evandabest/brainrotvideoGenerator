@@ -21,8 +21,10 @@ if not api_key:
     raise EnvironmentError("GOOGLE_GEMINI_KEY is not set in environment variables.")
 genai.configure(api_key=api_key)
 
-async def generate_tts(text, output_path):
-    voice = "en-US-JennyNeural"
+async def generate_tts(text, output_path, v):
+    #voice = "en-US-JennyNeural"
+    #voice = "en-US-ChristopherNeural"
+    voice = v
     communicate = edge_tts.Communicate(text, voice)
     await communicate.save(output_path)
 
@@ -31,6 +33,8 @@ def generate_audio():
     try:
         print("Received request for audio generation")
         script = request.form.get('script', '')
+        voice = request.form.get('voice', '')
+        print(voice)
 
         if not script:
             return jsonify({'error': 'No text provided'}), 400
@@ -41,7 +45,7 @@ def generate_audio():
             temp_filename = tmpfile.name
 
         try:
-            asyncio.run(generate_tts(script, temp_filename))
+            asyncio.run(generate_tts(script, temp_filename, voice))
             
             # Read the generated audio into a BytesIO buffer
             with open(temp_filename, 'rb') as f:
