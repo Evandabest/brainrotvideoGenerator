@@ -24,6 +24,7 @@ const MediaCombiner: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [ffmpeg, setFFmpeg] = useState<FFmpeg | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [level, setLevel] = useState<number>(0);
   
   const videoRef = useRef<HTMLInputElement>(null);
 
@@ -71,6 +72,10 @@ const MediaCombiner: React.FC = () => {
     setSelectedVoice(event.target.value);
   };
 
+  const handleLevelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLevel(Number(event.target.value));
+  };
+
   const getScript = async () => {
     try {
         if (!ffmpeg) {
@@ -94,8 +99,10 @@ const MediaCombiner: React.FC = () => {
         const formData = new FormData();
         formData.append('video', videoFile);
         formData.append('duration', ceiledDuration.toString()); // Append as string
+        formData.append('level', level.toString()); // Append level as string
 
         console.log(`FormData Duration: ${formData.get('duration')}`);
+        console.log(`FormData Level: ${formData.get('level')}`);
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/getScript`, {
             method: 'POST',
@@ -217,6 +224,25 @@ const MediaCombiner: React.FC = () => {
             className="w-full border rounded p-2"
             disabled={status === 'loading' || status === 'processing'}
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Brainrot Level:
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="5"
+            value={level}
+            onChange={handleLevelChange}
+            className="w-full"
+            disabled={status === 'loading' || status === 'processing'}
+          />
+          <div className="flex justify-between text-xs">
+            <span>Brainrot</span>
+            <span>Brainrotmaxxed</span>
+          </div>
         </div>
 
         <button
