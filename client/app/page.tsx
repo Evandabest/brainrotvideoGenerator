@@ -6,8 +6,21 @@ import { toBlobURL } from '@ffmpeg/util';
 
 type ProcessingStatus = 'idle' | 'loading' | 'processing' | 'completed' | 'error';
 
+const voices = [
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, AriaNeural)", shortName: "en-US-AriaNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, AnaNeural)", shortName: "en-US-AnaNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, ChristopherNeural)", shortName: "en-US-ChristopherNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, EricNeural)", shortName: "en-US-EricNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, GuyNeural)", shortName: "en-US-GuyNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, JennyNeural)", shortName: "en-US-JennyNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, MichelleNeural)", shortName: "en-US-MichelleNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, RogerNeural)", shortName: "en-US-RogerNeural" },
+  { name: "Microsoft Server Speech Text to Speech Voice (en-US, SteffanNeural)", shortName: "en-US-SteffanNeural" },
+];
+
 const MediaCombiner: React.FC = () => {
   const [status, setStatus] = useState<ProcessingStatus>('idle');
+  const [selectedVoice, setSelectedVoice] = useState(voices[0].shortName);
   const [error, setError] = useState<string | null>(null);
   const [ffmpeg, setFFmpeg] = useState<FFmpeg | null>(null);
   
@@ -49,6 +62,12 @@ const MediaCombiner: React.FC = () => {
         reject('Failed to load video metadata');
       };
     });
+  };
+
+  interface VoiceChangeEvent extends React.ChangeEvent<HTMLSelectElement> {}
+
+  const handleVoiceChange = (event: VoiceChangeEvent) => {
+    setSelectedVoice(event.target.value);
   };
 
   const getScript = async () => {
@@ -123,11 +142,14 @@ const MediaCombiner: React.FC = () => {
 
       const formData = new FormData();
       formData.append('script', script);
+      formData.append('voice', selectedVoice);
 
       const audioResponse = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/generate-audio`, {
         method: 'POST',
         body: formData
       });
+
+      console.log(audioResponse);
 
       if (!audioResponse.ok) {
         throw new Error('Failed to generate audio');
@@ -179,6 +201,13 @@ const MediaCombiner: React.FC = () => {
       )}
 
       <div className="space-y-4">
+        <select value={selectedVoice} onChange={handleVoiceChange}>
+          {voices.map((voice) => (
+            <option key={voice.shortName} value={voice.shortName}>
+              {voice.name}
+            </option>
+          ))}
+        </select>
         <div>
           <label className="block text-sm font-medium mb-2">
             Select Video File:
