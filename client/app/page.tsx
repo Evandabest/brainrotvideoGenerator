@@ -318,10 +318,10 @@ const MediaCombiner: React.FC = () => {
                       className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer"
                       disabled={status === 'processing'}
                     />
-                    <div className="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 mt-1">
-                      <span>Brainrot</span>
-                      <span>Brainrotted</span>
-                      <span>Brainrotmaxxed</span>
+                    <div className="flex items-center text-xs text-gray-600 dark:text-gray-400 mt-1">
+                      <span className="w-1/3 text-left">Brainrot</span>
+                      <span className="w-1/3 text-center">Brainrotted</span>
+                      <span className="w-1/3 text-right">Brainrotmaxxed</span>
                     </div>
                   </div>
                 </div>
