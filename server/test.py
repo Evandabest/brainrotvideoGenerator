@@ -69,8 +69,10 @@ def makeScript(file_stream: io.BytesIO, duration: int, level:int) -> str:
             if video_file.state.name == "FAILED":
                 raise ValueError(f"File processing failed with state: {video_file.state.name}")
 
-
-            prompt = prompts[level]
+            if level > 0 and level < 6:
+                prompt = prompts[level]
+            else:
+                prompt = prompts[3]
 
 
             # Choose a Gemini model

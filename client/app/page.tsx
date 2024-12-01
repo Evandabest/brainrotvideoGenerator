@@ -26,7 +26,7 @@ const MediaCombiner: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [ffmpeg, setFFmpeg] = useState<FFmpeg | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [level, setLevel] = useState<number>(0);
+  const [level, setLevel] = useState<number>(3);
   const [dragActive, setDragActive] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   
