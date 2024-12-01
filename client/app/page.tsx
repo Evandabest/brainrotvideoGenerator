@@ -131,11 +131,16 @@ const MediaCombiner: React.FC = () => {
         console.log(`FormData Duration: ${formData.get('duration')}`);
         console.log(`FormData Level: ${formData.get('level')}`);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/getScript`, {
+        //const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/getScript`, {
+        //    method: 'POST',
+        //    body: formData,
+        //});
+
+        const response = await fetch(`https://brainrotvideogenerator-v8er.onrender.com/getScript`, {
             method: 'POST',
             body: formData,
         });
-
+        
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.error || 'Failed to generate script');
@@ -179,7 +184,8 @@ const MediaCombiner: React.FC = () => {
       formData.append('script', script);
       formData.append('voice', selectedVoice);
 
-      const audioResponse = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/generate-audio`, {
+      //const audioResponse = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/generate-audio`, {
+      const audioResponse = await fetch(`https://brainrotvideogenerator-v8er.onrender.com/generate-audio`, {
         method: 'POST',
         body: formData
       });
