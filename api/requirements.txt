@@ -1,0 +1,6 @@
+Flask
+Flask-Cors
+edge-tts
+google-generativeai
+python-dotenv
+markdown

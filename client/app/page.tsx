@@ -9,15 +9,15 @@ import Navbar from '@/components/navbar';
 type ProcessingStatus = 'idle' | 'processing' | 'completed' | 'error' | 'loading';
 
 const voices = [
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, AriaNeural)", shortName: "en-US-AriaNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, AnaNeural)", shortName: "en-US-AnaNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, ChristopherNeural)", shortName: "en-US-ChristopherNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, EricNeural)", shortName: "en-US-EricNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, GuyNeural)", shortName: "en-US-GuyNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, JennyNeural)", shortName: "en-US-JennyNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, MichelleNeural)", shortName: "en-US-MichelleNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, RogerNeural)", shortName: "en-US-RogerNeural" },
-  { name: "Microsoft Server Speech Text to Speech Voice (en-US, SteffanNeural)", shortName: "en-US-SteffanNeural" },
+  { name: "Aria", shortName: "en-US-AriaNeural" },
+  { name: "Ana", shortName: "en-US-AnaNeural" },
+  { name: "Christopher", shortName: "en-US-ChristopherNeural" },
+  { name: "Eric", shortName: "en-US-EricNeural" },
+  { name: "Guy", shortName: "en-US-GuyNeural" },
+  { name: "Jenny", shortName: "en-US-JennyNeural" },
+  { name: "Michelle", shortName: "en-US-MichelleNeural" },
+  { name: "Roger", shortName: "en-US-RogerNeural" },
+  { name: "Steffan", shortName: "en-US-SteffanNeural" },
 ];
 
 const MediaCombiner: React.FC = () => {
