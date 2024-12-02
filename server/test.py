@@ -12,7 +12,6 @@ import brain_rot_terms
 load_dotenv()
 
 
-# Configure API key
 api_key = os.getenv("GOOGLE_GEMINI_KEY")
 if not api_key:
     raise EnvironmentError("GOOGLE_GEMINI_KEY is not set in environment variables.")
@@ -70,17 +69,11 @@ def makeScript(file_stream: io.BytesIO, duration: int, level:int) -> str:
             else:
                 prompt = prompts[3]
 
-
-            # Choose a Gemini model
             model = genai.GenerativeModel(model_name="gemini-1.5-pro")
 
-
-            # Make the LLM request
             print("Making LLM inference request...")
             response = model.generate_content([video_file, prompt], request_options={"timeout": 600})
 
-
-            # Extract and return the script
             script = response.text.strip()
             print("Script generation complete.")
             return script

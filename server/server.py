@@ -14,7 +14,6 @@ from test import makeScript
 app = Flask(__name__)
 CORS(app)
 
-# Configure API key
 load_dotenv()
 api_key = os.getenv("GOOGLE_GEMINI_KEY")
 if not api_key:
@@ -47,7 +46,6 @@ def generate_audio():
         try:
             asyncio.run(generate_tts(script, temp_filename, voice))
             
-            # Read the generated audio into a BytesIO buffer
             with open(temp_filename, 'rb') as f:
                 audio_data = f.read()
             audio_buffer = io.BytesIO(audio_data)
@@ -79,7 +77,7 @@ def upload_video():
         # Log all form data
         print("Received Form Data:", request.form)
 
-        duration = request.form.get('duration', default=60, type=int)  # Example duration
+        duration = request.form.get('duration', default=60, type=int)  
         print(f"Parsed Duration: {duration}")
 
         level = request.form.get('level', default=3, type=int)
@@ -87,11 +85,9 @@ def upload_video():
         if duration is None:
             return jsonify({'error': 'Duration is missing or invalid'}), 400
 
-        # Read file into BytesIO
         video_bytes = file.read()
         video_stream = io.BytesIO(video_bytes)
 
-        # Call makeScript with in-memory file
         script = makeScript(video_stream, duration, level)
 
         print(f"Duration: {duration}, Script: {script}")

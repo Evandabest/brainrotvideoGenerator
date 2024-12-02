@@ -8,7 +8,6 @@ const Navbar: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    // Check for saved preference or system preference on mount
     const isDark = localStorage.getItem('darkMode') === 'true' ||
       (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
     
@@ -22,7 +21,6 @@ const Navbar: React.FC = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
     
-    // Update DOM and save preference
     document.documentElement.classList.toggle('dark');
     localStorage.setItem('darkMode', newDarkMode.toString());
   };
